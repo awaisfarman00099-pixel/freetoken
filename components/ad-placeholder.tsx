@@ -7,10 +7,7 @@ interface AdPlaceholderProps {
   className?: string;
 }
 
-export function AdPlaceholder({
-  size = "banner",
-  className = "",
-}: AdPlaceholderProps) {
+export function AdPlaceholder({ size = "banner", className = "" }: AdPlaceholderProps) {
   const iframeDims = {
     banner: { width: "728px", height: "90px" },
     sidebar: { width: "300px", height: "600px" },
@@ -23,13 +20,13 @@ export function AdPlaceholder({
     square: "//acceptable.a-ads.com/2420763/?size=300x250",
   };
 
-  const astrearSrcOld =
-    "https://www.highperformanceformat.com/3ec2c1202744a3469ed447460a8201b4/invoke.js";
+  const astrearSrc = {
+    banner: "https://www.highperformanceformat.com/3ec2c1202744a3469ed447460a8201b4/invoke.js",
+    sidebar: "https://www.highperformanceformat.com/3ec2c1202744a3469ed447460a8201b4/invoke.js",
+    square: "https://www.highperformanceformat.com/3ec2c1202744a3469ed447460a8201b4/invoke.js",
+  };
 
-  const astrearSrcNew =
-    "https://www.highperformanceformat.com/8f012c7d52435368591b7f0623d50748/invoke.js";
-
-  const dims = iframeDims[size];
+  const dims = iframeDims[size] || iframeDims.banner;
 
   return (
     <div
@@ -37,56 +34,35 @@ export function AdPlaceholder({
       style={{ width: dims.width, height: dims.height }}
     >
       {typeof window !== "undefined" && (
-        <div className="w-full h-full relative">
-          {/* A-Ads */}
+        <div className="w-full h-full flex flex-col items-center justify-center">
+          {/* A-Ads iframe */}
           <iframe
             data-aa="2420763"
             src={aadsSrc[size]}
-            style={{
-              border: 0,
-              padding: 0,
-              width: dims.width,
-              height: dims.height,
-              overflow: "hidden",
-            }}
+            style={{ border: 0, padding: 0, width: dims.width, height: dims.height, overflow: "hidden" }}
             title="A-Ads Advertisement"
           />
 
-          {/* Old Astrear Ad */}
+          {/* Astrear script */}
           <script
+            type="text/javascript"
             dangerouslySetInnerHTML={{
               __html: `
                 atOptions = {
-                  key: "3ec2c1202744a3469ed447460a8201b4",
-                  format: "iframe",
-                  width: ${dims.width.replace("px", "")},
-                  height: ${dims.height.replace("px", "")},
-                  params: {}
+                  'key' : '3ec2c1202744a3469ed447460a8201b4',
+                  'format' : 'iframe',
+                  'height' : ${dims.height.replace("px", "")},
+                  'width' : ${dims.width.replace("px", "")},
+                  'params' : {}
                 };
               `,
             }}
-          />
-          <script src={astrearSrcOld} async />
-
-          {/* ✅ New Astrear Ad (300x250 only) */}
-          {size === "square" && (
-            <>
-              <script
-                dangerouslySetInnerHTML={{
-                  __html: `
-                    atOptions = {
-                      key: "8f012c7d52435368591b7f0623d50748",
-                      format: "iframe",
-                      width: 300,
-                      height: 250,
-                      params: {}
-                    };
-                  `,
-                }}
-              />
-              <script src={astrearSrcNew} async />
-            </>
-          )}
+          ></script>
+          <script
+            type="text/javascript"
+            src={astrearSrc[size]}
+            async
+          ></script>
         </div>
       )}
     </div>
