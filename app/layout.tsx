@@ -31,6 +31,7 @@ export default function RootLayout({
       <head>
         <meta name="coinzilla" content="1ee0d5ed4b10c3bb18381a6e61831f75" />
         <meta name="monetag" content="dd257f886ff10cad0a8bd5eb3e306c13" />
+        <meta name="cryptocoinsad" content="cryptocoinsad-82241" />
       </head>
       <body className={`${inter.className} font-sans antialiased`}>
         {/* ================= EZOIC PRIVACY ================= */}
