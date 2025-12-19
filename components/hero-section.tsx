@@ -21,7 +21,7 @@ export function HeroSection() {
       {/* Top Badge */}
       <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-muted border border-border mb-8">
         <Zap className="w-4 h-4 text-primary" />
-        <span className="text-sm font-medium">Earn Faucet Without Login - 100% Free</span>
+        <span className="text-sm font-medium">Awais Faucet Without Login - 100% Free</span>
       </div>
 
       {/* Heading */}
